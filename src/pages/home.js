@@ -1,62 +1,571 @@
-import { NavLink } from 'react-router-dom';
-import { useAuth } from 'hooks/auth'
-import reactLogo from 'images/logo512.png';
+import {useAuth} from 'hooks/auth'
+import {useInitTheme} from 'hooks/initTheme';
+import FooterAuth from 'components/Layouts/FooterAuth';
+import HeaderAuth from 'components/Layouts/HeaderAuth';
+import FeatherIcon from 'feather-icons-react';
+import FeaturePostArea from 'components/Widgets/FeaturePostArea';
 
 function Home() {
-  const { user } = useAuth({ middleware: 'guest' })
+    const {user} = useAuth({middleware: 'guest'})
+    useInitTheme();
 
-  return (
-    <div className="relative flex items-top justify-center
-    min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-      <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-        {user ?
-          <NavLink
-            to="/dashboard"
-            className="ml-4 text-sm text-gray-700 underline"
-          >
-            Dashboard
-          </NavLink>
-          :
-          <>
-            <NavLink
-              to="/login"
-              className="ml-4 text-sm text-white underline"
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to="/register"
-              className="ml-4 text-sm text-white underline"
-            >
-              Register
-            </NavLink>
-          </>
-        }
-      </div>
-      <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
-        <div className="flex justify-center pt-8 sm:justify-start sm:pt-0">
-          <svg
-            viewBox="0 0 651 192"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-16 w-auto text-gray-700 sm:h-20">
-            <g clipPath="url(#clip0)" fill="#EF3B2D">
-              {/* eslint-disable-next-line max-len */}
-              <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z" />
-            </g>
-          </svg>
-          <img
-            alt='react- logo'
-            src={reactLogo}
-            className="h-16 w-auto text-gray-700 sm:h-20 ml-10"
-          />
+    return (
+        <div>
+            <HeaderAuth user={user}/>
+
+            <div className="main-content-wrapper">
+
+                <section className="hero-area home-one">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-6">
+                                <div className="hero-content">
+                                    <h1 className="hero-content__title">Welcome</h1>
+                                    <p className="hero-content__desc">Into my world</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <FeaturePostArea/>
+
+                <div className="contact-area home-one">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-4">
+                                <div className="mailchimp">
+                                    <div className="section-title mb--31">
+                                        <h2 className="section-title__main">CONTACT ME</h2>
+                                    </div>
+                                    <p className="mailchimp__text">Leave your email here and stay informed about our
+                                        promotions and new arrivals.</p>
+                                    <form className="mailchimp-form mc-form mailchimp-form--2"
+                                          action="https://gmail.us19.list-manage.com/subscribe/post?u=9fac302a213ab56195e9125e7&amp;id=a30904c5f3"
+                                          method="post" name="mc-embedded-subscribe-form">
+                                        <label htmlFor="mailchimp-email" className="sr-only">Subscribe us</label>
+                                        <div className="mailchimp-form__group">
+                                            <input className="mailchimp-form__input" type="email" id="mailchimp-email"
+                                                   name="mailchimp-email" placeholder="Your Email"/>
+                                            <button className="mailchimp-form__btn" type="submit">
+                                                <FeatherIcon icon="arrow-right"/>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div className="mailchimp-alerts">
+                                        <div className="mailchimp-submitting"></div>
+                                        <div className="mailchimp-success"></div>
+                                        <div className="mailchimp-error"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-7 offset-lg-1">
+                                <div className="cta">
+                                    <div className="cta__content">
+                                        <h3 className="cta__heading">
+                                            Get in touch <span>with me...</span>
+                                        </h3>
+                                        <p className="cta__text">The standard chunk of Lorem Ipsum used since the 1500s
+                                            is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from
+                                            de Finibus Bonorum.</p>
+                                        <a href="contact.html" className="btn btn--light btn--shape-rounded btn--icon">
+                                            <span>Connect With me <span className="icon"><i
+                                                data-feather="chevron-right"></i></span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <main className="main-area home-one">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-8">
+                                <div className="recent-post-area">
+                                    <div className="section-title mb--46">
+                                        <h2 className="section-title__main">MOST RECENT POST</h2>
+                                    </div>
+                                    <div className="recent-post-content">
+                                        <article className="blog blog--two mb--50">
+                                            <div className="blog__inner">
+                                                <div className="blog__media">
+                                                    <div className="blog__link">
+                                                        <FeatherIcon icon="external-link"/>
+                                                        <a href="https://themeforest.net/user/rainbow-themes/portfolio"
+                                                           target="_blank"
+                                                           rel="noopener noreferrer">https://themeforest.net/user/rainbow-themes/portfolio</a>
+                                                    </div>
+                                                </div>
+                                                <div className="blog__content">
+                                                    <header className="blog__header">
+                                                        <a className="blog__category"
+                                                           href="archive.html">THEMEFOREST</a>
+                                                        <h3 className="blog__title">
+                                                            <a href="single-blog.html">Linked format blog title</a>
+                                                        </h3>
+                                                        <div className="blog__meta">
+                                                            <div className="blog__meta-item">
+                                                                <a href="archive.html">MARCH 26, 2023</a>
+                                                            </div>
+                                                            <div className="blog__meta-item">
+                                                                <a href="single-blog.html" className="blog__comment">2
+                                                                    Comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <p className="blog__excerpt">
+                                                        This is useful, because plants require pollen of the same
+                                                        species to propagate. While other bees may introduce pollen from
+                                                        different plant species, the honeybee gu…
+                                                    </p>
+                                                    <footer className="blog__footer">
+                                                        <a href="single-blog.html"
+                                                           className="blog__btn"><span>Read More <i
+                                                            data-feather="chevron-right"></i></span> </a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <article className="blog blog--two mb--50">
+                                            <div className="blog__inner">
+                                                <div className="blog__media">
+                                                    <blockquote className="blog__quote">
+                                                        <FeatherIcon icon="paperclip"/>
+                                                        <h3>Courage is the first of human qualities because it is the
+                                                            quality which gurantees the others</h3>
+                                                        <footer>-Aristotle</footer>
+                                                    </blockquote>
+                                                </div>
+                                                <div className="blog__content">
+                                                    <header className="blog__header">
+                                                        <a className="blog__category"
+                                                           href="archive.html">THEMEFOREST</a>
+                                                        <h3 className="blog__title">
+                                                            <a href="single-blog.html">Quote format blog title</a>
+                                                        </h3>
+                                                        <div className="blog__meta">
+                                                            <div className="blog__meta-item">
+                                                                <a href="archive.html">MARCH 26, 2023</a>
+                                                            </div>
+                                                            <div className="blog__meta-item">
+                                                                <a href="single-blog.html" className="blog__comment">2
+                                                                    Comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <p className="blog__excerpt">
+                                                        This is useful, because plants require pollen of the same
+                                                        species to propagate. While other bees may introduce pollen from
+                                                        different plant species, the honeybee gu…
+                                                    </p>
+                                                    <footer className="blog__footer">
+                                                        <a href="single-blog.html"
+                                                           className="blog__btn"><span>Read More <i
+                                                            data-feather="chevron-right"></i></span> </a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <article className="blog blog--two mb--50">
+                                            <div className="blog__inner">
+                                                <div className="blog__media">
+                                                    <figure className="blog__thumb">
+                                                        <img src="assets/img/blog/blog-9-510x350.jpg" alt="Blog"/>
+                                                        <a href="single-blog.html" className="overlay-link">Blog
+                                                            Title</a>
+                                                    </figure>
+                                                </div>
+                                                <div className="blog__content">
+                                                    <header className="blog__header">
+                                                        <a className="blog__category"
+                                                           href="archive.html">THEMEFOREST</a>
+                                                        <h3 className="blog__title">
+                                                            <a href="single-blog.html">Never Lose Your Technology
+                                                                Again</a>
+                                                        </h3>
+                                                        <div className="blog__meta">
+                                                            <div className="blog__meta-item">
+                                                                <a href="archive.html">MARCH 26, 2023</a>
+                                                            </div>
+                                                            <div className="blog__meta-item">
+                                                                <a href="single-blog.html" className="blog__comment">2
+                                                                    Comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <p className="blog__excerpt">
+                                                        This is useful, because plants require pollen of the same
+                                                        species to propagate. While other bees may introduce pollen from
+                                                        different plant species, the honeybee gu…
+                                                    </p>
+                                                    <footer className="blog__footer">
+                                                        <a href="single-blog.html"
+                                                           className="blog__btn"><span>Read More <i
+                                                            data-feather="chevron-right"></i></span> </a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <article className="blog blog--two mb--50">
+                                            <div className="blog__inner">
+                                                <div className="blog__media">
+                                                    <div className="blog__video">
+                                                        <figure className="blog__video-poster">
+                                                            <img src="assets/img/blog/blog-2-510x350.jpg" alt="Blog"/>
+                                                        </figure>
+                                                        <div className="blog__video-overlay">
+                                                            <button type="button" className="blog__video-btn"
+                                                                    data-toggle="modal" data-target="#videoBlogModal">
+                                                                <FeatherIcon icon="play"/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="blog__content">
+                                                    <header className="blog__header">
+                                                        <a className="blog__category"
+                                                           href="archive.html">THEMEFOREST</a>
+                                                        <h3 className="blog__title">
+                                                            <a href="single-blog.html">Video format blog title</a>
+                                                        </h3>
+                                                        <div className="blog__meta">
+                                                            <div className="blog__meta-item">
+                                                                <a href="archive.html">MARCH 26, 2023</a>
+                                                            </div>
+                                                            <div className="blog__meta-item">
+                                                                <a href="single-blog.html" className="blog__comment">2
+                                                                    Comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <p className="blog__excerpt">
+                                                        This is useful, because plants require pollen of the same
+                                                        species to propagate. While other bees may introduce pollen from
+                                                        different plant species, the honeybee gu…
+                                                    </p>
+                                                    <footer className="blog__footer">
+                                                        <a href="single-blog.html"
+                                                           className="blog__btn"><span>Read More <i
+                                                            data-feather="chevron-right"></i></span> </a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <article className="blog blog--two mb--50">
+                                            <div className="blog__inner">
+                                                <div className="blog__media">
+                                                    <figure className="blog__thumb">
+                                                        <img src="assets/img/blog/blog-3-510x350.jpg" alt="Blog"/>
+                                                        <a href="single-blog.html" className="overlay-link">Blog
+                                                            Title</a>
+                                                    </figure>
+                                                </div>
+                                                <div className="blog__content">
+                                                    <header className="blog__header">
+                                                        <a className="blog__category"
+                                                           href="archive.html">THEMEFOREST</a>
+                                                        <h3 className="blog__title">
+                                                            <a href="single-blog.html">I wish to ask important eagerness
+                                                                to follow or never</a>
+                                                        </h3>
+                                                        <div className="blog__meta">
+                                                            <div className="blog__meta-item">
+                                                                <a href="archive.html">MARCH 26, 2023</a>
+                                                            </div>
+                                                            <div className="blog__meta-item">
+                                                                <a href="single-blog.html" className="blog__comment">2
+                                                                    Comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <p className="blog__excerpt">
+                                                        This is useful, because plants require pollen of the same
+                                                        species to propagate. While other bees may introduce pollen from
+                                                        different plant species, the honeybee gu…
+                                                    </p>
+                                                    <footer className="blog__footer">
+                                                        <a href="single-blog.html"
+                                                           className="blog__btn"><span>Read More <i
+                                                            data-feather="chevron-right"></i></span> </a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <article className="blog blog--two mb--50">
+                                            <div className="blog__inner">
+                                                <div className="blog__media">
+                                                    <div className="blog__gallery">
+                                                        <div className="post-slider swiper-container">
+                                                            <div className="swiper-wrapper">
+                                                                <div className="swiper-slide">
+                                                                    <img src="assets/img/blog/blog-4-510x350.jpg"
+                                                                         alt="blog"/>
+                                                                </div>
+                                                                <div className="swiper-slide">
+                                                                    <img src="assets/img/blog/blog-5-510x350.jpg"
+                                                                         alt="blog"/>
+                                                                </div>
+                                                                <div className="swiper-slide">
+                                                                    <img src="assets/img/blog/blog-6-510x350.jpg"
+                                                                         alt="blog"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="blog__content">
+                                                    <header className="blog__header">
+                                                        <a className="blog__category"
+                                                           href="archive.html">THEMEFOREST</a>
+                                                        <h3 className="blog__title">
+                                                            <a href="single-blog.html">Gallery format blog title</a>
+                                                        </h3>
+                                                        <div className="blog__meta">
+                                                            <div className="blog__meta-item">
+                                                                <a href="archive.html">MARCH 26, 2023</a>
+                                                            </div>
+                                                            <div className="blog__meta-item">
+                                                                <a href="single-blog.html" className="blog__comment">2
+                                                                    Comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <p className="blog__excerpt">
+                                                        This is useful, because plants require pollen of the same
+                                                        species to propagate. While other bees may introduce pollen from
+                                                        different plant species, the honeybee gu…
+                                                    </p>
+                                                    <footer className="blog__footer">
+                                                        <a href="single-blog.html"
+                                                           className="blog__btn"><span>Read More <i
+                                                            data-feather="chevron-right"></i></span> </a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        <article className="blog blog--two mb--50">
+                                            <div className="blog__inner">
+                                                <div className="blog__media">
+                                                    <figure className="blog__thumb">
+                                                        <img src="assets/img/blog/blog-7-510x350.jpg" alt="Blog"/>
+                                                        <a href="single-blog.html" className="overlay-link">Blog
+                                                            Title</a>
+                                                    </figure>
+                                                </div>
+                                                <div className="blog__content">
+                                                    <header className="blog__header">
+                                                        <a className="blog__category"
+                                                           href="archive.html">THEMEFOREST</a>
+                                                        <h3 className="blog__title">
+                                                            <a href="single-blog.html">Now all manufacturers to achieve
+                                                                because it is not a great film</a>
+                                                        </h3>
+                                                        <div className="blog__meta">
+                                                            <div className="blog__meta-item">
+                                                                <a href="archive.html">MARCH 26, 2023</a>
+                                                            </div>
+                                                            <div className="blog__meta-item">
+                                                                <a href="single-blog.html" className="blog__comment">2
+                                                                    Comments</a>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <p className="blog__excerpt">
+                                                        This is useful, because plants require pollen of the same
+                                                        species to propagate. While other bees may introduce pollen from
+                                                        different plant species, the honeybee gu…
+                                                    </p>
+                                                    <footer className="blog__footer">
+                                                        <a href="single-blog.html"
+                                                           className="blog__btn"><span>Read More <i
+                                                            data-feather="chevron-right"></i></span> </a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <nav className="pagination-wrap">
+                                        <ul className="pagination">
+                                            <li className="pagination__item disabled">
+                                                <a className="pagination__link pagination__link--prev"
+                                                   href="index.html">
+                                                    <FeatherIcon icon="chevron-left"/>
+                                                    <span>prev</span>
+                                                </a>
+                                            </li>
+                                            <li className="pagination__item">
+                                                <a className="pagination__link active" href="index.html">
+                                                    <span>1</span>
+                                                </a>
+                                            </li>
+                                            <li className="pagination__item">
+                                                <a className="pagination__link" href="index.html">
+                                                    <span>2</span>
+                                                </a>
+                                            </li>
+                                            <li className="pagination__item">
+                                                <a className="pagination__link" href="index.html">
+                                                    <span>3</span>
+                                                </a>
+                                            </li>
+                                            <li className="pagination__item">
+                                                <a className="pagination__link" href="index.html">
+                                                    <span>4</span>
+                                                </a>
+                                            </li>
+                                            <li className="pagination__item">
+                                                <a className="pagination__link pagination__link--next"
+                                                   href="index.html">
+                                                    <span>next</span>
+                                                    <FeatherIcon icon="chevron-right"/>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div className="col-lg-4">
+                                <aside className="sidebar-widget mt--md-12">
+                                    <div className="widget widget--primary mb--30">
+                                        <h3 className="widget__title">SEARCH</h3>
+                                        <form className="search-form">
+                                            <label className="sr-only" htmlFor="search">Search</label>
+                                            <input className="search-form__input" type="search" id="search"
+                                                   name="search" placeholder="Search Here..."/>
+                                            <button type="submit" className="search-form__btn" aria-label="Submit">
+                                                <i data-feather="search"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div className="widget mb--30">
+                                        <h3 className="widget__title">RECENT STORIES</h3>
+                                        <div className="recent-post">
+                                            <div className="recent-post__item">
+                                                <article className="blog blog--three">
+                                                    <div className="blog__inner">
+                                                        <div className="blog__content">
+                                                            <a href="archive.html" className="blog__date">MARCH 26,
+                                                                2023</a>
+                                                            <h4 className="blog__title">
+                                                                <a href="single-blog.html">I wish to ask important
+                                                                    eagerness to follow or never</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div className="blog__media">
+                                                            <figure className="blog__thumb">
+                                                                <img src="assets/img/blog/blog-1-78x78.jpg" alt="Blog"/>
+                                                                <a href="single-blog.html" className="overlay-link">Blog
+                                                                    Link</a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div className="recent-post__item">
+                                                <article className="blog blog--three">
+                                                    <div className="blog__inner">
+                                                        <div className="blog__content">
+                                                            <a href="archive.html" className="blog__date">MARCH 26,
+                                                                2023</a>
+                                                            <h4 className="blog__title">
+                                                                <a href="single-blog.html">Now all manufacturers to
+                                                                    achieve because it is not a great film</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div className="blog__media">
+                                                            <figure className="blog__thumb">
+                                                                <img src="assets/img/blog/blog-2-78x78.jpg" alt="Blog"/>
+                                                                <a href="single-blog.html" className="overlay-link">Blog
+                                                                    Link</a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div className="recent-post__item">
+                                                <article className="blog blog--three">
+                                                    <div className="blog__inner">
+                                                        <div className="blog__content">
+                                                            <a href="archive.html" className="blog__date">MARCH 26,
+                                                                2023</a>
+                                                            <h4 className="blog__title">
+                                                                <a href="single-blog.html">the choice is easy blinded to
+                                                                    the needs of hardship</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div className="blog__media">
+                                                            <figure className="blog__thumb">
+                                                                <img src="assets/img/blog/blog-3-78x78.jpg" alt="Blog"/>
+                                                                <a href="single-blog.html" className="overlay-link">Blog
+                                                                    Link</a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <div className="recent-post__item">
+                                                <article className="blog blog--three">
+                                                    <div className="blog__inner">
+                                                        <div className="blog__content">
+                                                            <a href="archive.html" className="blog__date">MARCH 26,
+                                                                2023</a>
+                                                            <h4 className="blog__title">
+                                                                <a href="single-blog.html">those who reject the troubles
+                                                                    they exercise that is either</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div className="blog__media">
+                                                            <figure className="blog__thumb">
+                                                                <img src="assets/img/blog/blog-4-78x78.jpg" alt="Blog"/>
+                                                                <a href="single-blog.html" className="overlay-link">Blog
+                                                                    Link</a>
+                                                            </figure>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="widget widget--primary mb--30">
+                                        <h3 className="widget__title">INSTAGRAM</h3>
+                                        <div id="instagram-feed"></div>
+                                    </div>
+                                    <div className="widget">
+                                        <h3 className="widget__title">CATEGORIES</h3>
+                                        <ul className="categories">
+                                            <li className="categories__item">
+                                                <a href="archive.html" className="categories__link">
+                                                    <span className="text">Stories</span>
+                                                    <span className="number">2</span>
+                                                </a>
+                                            </li>
+                                            <li className="categories__item">
+                                                <a href="archive.html" className="categories__link">
+                                                    <span className="text">Videos</span>
+                                                    <span className="number">2</span>
+                                                </a>
+                                            </li>
+                                            <li className="categories__item">
+                                                <a href="archive.html" className="categories__link">
+                                                    <span className="text">Galleries</span>
+                                                    <span className="number">2</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+            </div>
+
+            <FooterAuth/>
         </div>
-        <div className="mt-8 bg-white text-5xl p-2">
-          Laravel Breeze Create React App Template
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Home;

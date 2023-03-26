@@ -90,8 +90,13 @@ export const useAuth = ({middleware, redirectIfAuthenticated} = {}) => {
   }
 
   useEffect(() => {
-    if (middleware === 'guest' && redirectIfAuthenticated && user) navigate(redirectIfAuthenticated)
-    if (middleware === 'auth' && error) logout()
+    if (middleware === 'guest' && redirectIfAuthenticated && user) {
+      navigate(redirectIfAuthenticated);
+    } else if (!user) {
+      navigate('/login');
+    } else if (middleware === 'auth' && error) {
+      logout();
+    }
   }, [user, error])
 
   return {

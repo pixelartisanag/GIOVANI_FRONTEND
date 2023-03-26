@@ -43,7 +43,7 @@
       "error", { "patterns": [ "../*" ]}
     ],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0}],
-    "max-len": [2, {"code": 120, "tabWidth": 4, "ignoreUrls": true, "comments": 120, "ignorePattern": "import"}],
+    "max-len": [2, {"code": 150, "tabWidth": 4, "ignoreUrls": true, "comments": 120, "ignorePattern": "import"}],
     "arrow-spacing": "error",
     "func-call-spacing": ["error", "never"],
     "space-infix-ops": ["error", { "int32Hint": false }],
