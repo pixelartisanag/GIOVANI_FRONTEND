@@ -1,11 +1,11 @@
-import AuthCard from "./src/components/AuthCard";
+import AuthCard from "./src/front/components/old/AuthCard";
 import {Link, NavLink} from "react-router-dom";
-import ApplicationLogo from "./src/components/ApplicationLogo";
-import AuthSessionStatus from "./src/components/AuthSessionStatus";
-import AuthValidationErrors from "./src/components/AuthValidationErrors";
-import Label from "./src/components/Label";
-import Input from "./src/components/Input";
-import Button from "./src/components/Button";
+import ApplicationLogo from "./src/front/components/old/ApplicationLogo";
+import AuthSessionStatus from "./src/front/components/old/AuthSessionStatus";
+import AuthValidationErrors from "./src/front/components/old/AuthValidationErrors";
+import Label from "./src/front/components/old/Label";
+import Input from "./src/front/components/old/Input";
+import Button from "./src/front/components/old/Button";
 
 <AuthCard
     logo={

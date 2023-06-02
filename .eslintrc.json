@@ -19,22 +19,18 @@
       "error",
       "unix"
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
     "arrow-body-style": [
       2,
       "as-needed"
     ],
     "lines-between-class-members": ["error", "always"] ,
-    "comma-dangle": [ "error", {
+/*    "comma-dangle": [ "error", {
       "arrays": "never",
       "objects": "never",
       "imports": "never",
       "exports": "never",
       "functions": "ignore"
-    }],
+    }],*/
     "no-confusing-arrow": "error",
     "no-console": "warn",
     "no-use-before-define": 1,
@@ -43,10 +39,10 @@
       "error", { "patterns": [ "../*" ]}
     ],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0}],
-    "max-len": [2, {"code": 150, "tabWidth": 4, "ignoreUrls": true, "comments": 120, "ignorePattern": "import"}],
+    "max-len": [2, {"code": 450, "tabWidth": 4, "ignoreUrls": true, "comments": 120, "ignorePattern": "import"}],
     "arrow-spacing": "error",
     "func-call-spacing": ["error", "never"],
     "space-infix-ops": ["error", { "int32Hint": false }],
-    "no-nested-ternary": "error"
+    "no-nested-ternary": "warn"
   }
 }
